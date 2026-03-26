@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     div.className = "toast";
     div.innerText = msg;
     document.body.appendChild(div);
+
     setTimeout(() => div.classList.add("show"), 100);
+
     setTimeout(() => {
       div.classList.remove("show");
       setTimeout(() => div.remove(), 300);
@@ -34,11 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (userMenu && dropdown) {
     userMenu.addEventListener("click", (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle("active");
+      dropdown.classList.toggle("open"); // ✅ corrigido
     });
 
     document.addEventListener("click", () => {
-      dropdown.classList.remove("active");
+      dropdown.classList.remove("open"); // ✅ corrigido
     });
 
     dropdown.addEventListener("click", (e) => {
@@ -52,14 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
   async function carregarUsuario() {
     const token = localStorage.getItem("token");
 
+    // ❌ NÃO LOGADO
     if (!token) {
       if (userName) userName.innerText = "Conta";
-      if (userAvatar) userAvatar.src = "../ASSETS/IMG/user.png";
+      if (userAvatar) userAvatar.src = "/assets/img/user.png"; // ✅ corrigido
 
       if (dropdown) {
         dropdown.innerHTML = `
-          <a href="login.html" class="item"><span>🔑</span> Entrar</a>
-          <a href="cadastro.html" class="item"><span>📝</span> Cadastrar</a>
+          <a href="login.html" class="dropdown-item">🔑 Entrar</a>
+          <a href="cadastro.html" class="dropdown-item">📝 Criar conta</a>
         `;
       }
       return;
@@ -72,28 +75,47 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
+      // 🔥 token inválido
+      if (res.status === 401) {
+        localStorage.removeItem("token");
+        return carregarUsuario();
+      }
+
       if (!res.ok) throw new Error();
 
       const user = await res.json();
 
-      if (userName) userName.innerText = user.nome;
-      if (userAvatar) userAvatar.src = "../ASSETS/IMG/user.png";
+      // 🔐 proteção básica XSS
+      const nomeSeguro = (user.nome || "Usuário").replace(/</g, "&lt;");
+
+      if (userName) userName.innerText = nomeSeguro;
+      if (userAvatar) userAvatar.src = "/assets/img/user.png"; // ✅ corrigido
 
       if (dropdown) {
         dropdown.innerHTML = `
-          <div style="padding: 12px 18px; font-weight: 600; color: var(--primary); border-bottom: 1px solid var(--border);">
-             Olá, ${user.nome}
+          <div class="dropdown-user-info">
+            Olá, ${nomeSeguro}
           </div>
-          <a href="#" class="item"><span>👤</span> Meu perfil</a>
-          <a href="meuspedidos.html" class="item"><span>📦</span> Meus pedidos</a>
-          <a href="#" id="logoutBtn" class="item logout"><span>🚪</span> Sair</a>
+
+          <a href="#" class="dropdown-item">👤 Meu perfil</a>
+          <a href="meuspedidos.html" class="dropdown-item">📦 Meus pedidos</a>
+
+          <div class="dropdown-sep"></div>
+
+          <a href="#" id="logoutBtn" class="dropdown-item danger">🚪 Sair</a>
         `;
 
+        // 🚪 LOGOUT
         document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
           e.preventDefault();
+
           localStorage.removeItem("token");
+
           toast("👋 Até logo!");
-          setTimeout(() => location.reload(), 800);
+
+          setTimeout(() => {
+            window.location.href = "login.html"; // ✅ melhor UX
+          }, 800);
         });
       }
 
@@ -103,10 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.removeItem("token");
 
       if (userName) userName.innerText = "Conta";
+
       if (dropdown) {
         dropdown.innerHTML = `
-          <a href="login.html" class="item"><span>🔑</span> Entrar</a>
-          <a href="cadastro.html" class="item"><span>📝</span> Cadastrar</a>
+          <a href="login.html" class="dropdown-item">🔑 Entrar</a>
+          <a href="cadastro.html" class="dropdown-item">📝 Criar conta</a>
         `;
       }
     }
@@ -146,7 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
     lista.innerHTML = "<p>Carregando produtos...</p>";
 
     try {
-      const res = await fetch(`${API}/produtos`);
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), 5000); // timeout
+
+      const res = await fetch(`${API}/produtos`, {
+        signal: controller.signal
+      });
 
       if (!res.ok) throw new Error();
 
@@ -171,16 +199,28 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    produtos.forEach(produto => {
+    produtos.forEach((produto, index) => {
       const div = document.createElement("div");
       div.className = "card-produto";
+      div.style.setProperty("--i", index + 1); // animação
 
       div.innerHTML = `
-        <img src="${produto.imagem || 'https://via.placeholder.com/300'}">
-        <h3>${produto.nome}</h3>
-        <p>${produto.descricao || ''}</p>
-        <span>R$ ${produto.preco}</span>
-        <button class="btn-cart">Adicionar</button>
+        <div class="card-img-wrap">
+          <img src="${produto.imagem || 'https://via.placeholder.com/300'}">
+        </div>
+
+        <div class="card-body">
+          <div class="card-nome">${produto.nome}</div>
+          <div class="card-desc">${produto.descricao || ''}</div>
+
+          <div class="card-bottom">
+            <div class="card-preco">R$ ${produto.preco}</div>
+
+            <div class="card-actions">
+              <button class="btn-cart">Adicionar</button>
+            </div>
+          </div>
+        </div>
       `;
 
       div.querySelector(".btn-cart")?.addEventListener("click", () => {
@@ -198,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const termo = inputBusca.value.toLowerCase();
 
     const filtrados = produtosCache.filter(p =>
-      p.nome.toLowerCase().includes(termo)
+      (p.nome || "").toLowerCase().includes(termo)
     );
 
     renderizarProdutos(filtrados);
