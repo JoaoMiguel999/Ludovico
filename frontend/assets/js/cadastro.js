@@ -41,7 +41,7 @@ document.getElementById("formCadastro").addEventListener("submit", async (e) => 
 
     // redireciona
     setTimeout(() => {
-      window.location.href = "Login.html";
+      window.location.href = "/login.html";
     }, 1000);
 
   } catch (error) {
