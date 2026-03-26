@@ -3,121 +3,307 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Marketplace artesanal Ludovico — Compre produtos únicos feitos à mão">
+  <title>Ludovico — Marketplace Artesanal</title>
 
-  <meta name="description" content="Marketplace artesanal Ludovico - Compre produtos únicos feitos à mão">
-  
-  <title>Ludovico - Marketplace Artesanal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/index.css">
 </head>
-
 <body>
 
-<header class="topbar">
-  <div class="container">
+<!-- ══════════════════════════════════════
+     ANNOUNCEMENT BAR
+══════════════════════════════════════ -->
+<div class="announcement-bar" id="announcementBar">
+  <p>✦ Frete grátis em compras acima de R$150 &nbsp;·&nbsp; ✦ Produtos 100% artesanais &nbsp;·&nbsp; ✦ Apoie artesãos brasileiros</p>
+  <button class="ann-close" id="annClose" aria-label="Fechar aviso">✕</button>
+</div>
 
-    <div class="logo">
-      <h2>Ludovico</h2>
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner container">
+
+    <!-- LOGO -->
+    <a href="index.html" class="logo" aria-label="Ludovico - Início">
+      <span class="logo-mark">L</span>
+      <span class="logo-text">Ludovico</span>
+    </a>
+
+    <!-- BUSCA -->
+    <div class="search-wrap">
+      <div class="search-box" role="search">
+        <select class="search-type" aria-label="Tipo de busca">
+          <option value="produtos">Produtos</option>
+          <option value="lojas">Lojas</option>
+        </select>
+        <div class="search-divider"></div>
+        <input type="text" id="inputBusca" placeholder="O que você procura?" autocomplete="off" aria-label="Buscar">
+        <button class="search-btn" aria-label="Buscar">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
     </div>
 
-    <div class="search-box">
-      <select>
-        <option>Produtos</option>
-        <option>Lojas</option>
-      </select>
-
-      <input type="text" placeholder="Busque por produtos">
-      <button>🔍</button>
-    </div>
-
+    <!-- AÇÕES -->
     <div class="actions">
 
-      <div class="icon" id="toggleDark">🌙</div>
+      <!-- Dark mode -->
+      <button class="action-btn" id="toggleDark" aria-label="Alternar tema" title="Alternar tema">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
 
-      <div class="icon">
-        ❤️ <span id="countFav">0</span>
-      </div>
+      <!-- Favoritos -->
+      <button class="action-btn" aria-label="Favoritos" title="Favoritos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="action-badge" id="countFav">0</span>
+      </button>
 
-      <div class="icon">
-        🛒 <span id="countCart">0</span>
-      </div>
+      <!-- Carrinho -->
+      <button class="action-btn" aria-label="Carrinho" title="Carrinho">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="action-badge" id="countCart">0</span>
+      </button>
 
-      <!-- 👤 USUÁRIO -->
-      <div class="user-menu">
+      <!-- Anunciar -->
+      <a href="anunciar.html" class="btn-anunciar">+ Anunciar</a>
 
-        <img id="userAvatar" 
-             src="assets/img/user.png" 
-             alt="Avatar">
-
+      <!-- Usuário -->
+      <div class="user-menu" id="userMenu">
+        <img id="userAvatar" src="assets/img/user.png" alt="Avatar do usuário" width="34" height="34" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=U'">
         <span id="userName">Conta</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
 
-        <div class="dropdown-user" id="dropdownUser">
-          <a href="login.html" class="item">🔑 Entrar</a>
-          <a href="cadastro.html" class="item">📝 Cadastrar</a>
+        <div class="dropdown-user" id="dropdownUser" role="menu">
+          <div id="menuNaoLogado">
+            <a href="login.html" class="dropdown-item" role="menuitem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              Entrar
+            </a>
+            <a href="cadastro.html" class="dropdown-item" role="menuitem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Criar conta
+            </a>
+          </div>
+          <div id="menuLogado" style="display:none">
+            <div class="dropdown-user-info">
+              <span id="nomeUsuario"></span>
+            </div>
+            <a href="#" class="dropdown-item" role="menuitem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Meu perfil
+            </a>
+            <a href="#" class="dropdown-item" role="menuitem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+              Meus pedidos
+            </a>
+            <div class="dropdown-sep"></div>
+            <a href="#" class="dropdown-item danger" id="logoutBtn" role="menuitem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sair
+            </a>
+          </div>
         </div>
-
       </div>
 
     </div>
   </div>
 
-  <nav class="menu">
-    <div class="container menu-container">
-      <ul>
-        <li class="active">☰ Todas as categorias</li>
-        <li>Casa e Decoração</li>
-        <li>Moda</li>
-        <li>Bebê e Infantil</li>
-        <li>Casamento</li>
-        <li>Festas e Eventos</li>
-        <li>Materiais de Artesanato</li>
+  <!-- CATEGORIAS -->
+  <nav class="categories-nav" aria-label="Categorias de produtos">
+    <div class="container">
+      <ul class="categories-list" id="categoriasList" role="list">
+        <li class="cat-item active" data-cat="todas" role="listitem">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Todas
+        </li>
+        <li class="cat-item" data-cat="casa" role="listitem">🏠 Casa e Decoração</li>
+        <li class="cat-item" data-cat="moda" role="listitem">👗 Moda</li>
+        <li class="cat-item" data-cat="bebe" role="listitem">🍼 Bebê e Infantil</li>
+        <li class="cat-item" data-cat="casamento" role="listitem">💍 Casamento</li>
+        <li class="cat-item" data-cat="festas" role="listitem">🎉 Festas</li>
+        <li class="cat-item" data-cat="materiais" role="listitem">🧵 Materiais</li>
       </ul>
     </div>
   </nav>
 </header>
 
-<main class="container">
-  <h2>Produtos em destaque</h2>
+<!-- ══════════════════════════════════════
+     HERO BANNER
+══════════════════════════════════════ -->
+<section class="hero" aria-label="Banner principal">
+  <div class="hero-content container">
+    <div class="hero-text">
+      <span class="hero-eyebrow">✦ Feito à mão com amor</span>
+      <h1 class="hero-title">Produtos únicos,<br><em>histórias reais</em></h1>
+      <p class="hero-sub">Descubra peças artesanais criadas por talentos de todo o Brasil.</p>
+      <div class="hero-actions">
+        <a href="#produtos" class="btn-hero-primary">Explorar produtos</a>
+        <a href="anunciar.html" class="btn-hero-ghost">Quero vender</a>
+      </div>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <strong>+2.400</strong>
+        <span>Artesãos</span>
+      </div>
+      <div class="hero-badge">
+        <strong>+18k</strong>
+        <span>Produtos</span>
+      </div>
+      <div class="hero-badge">
+        <strong>⭐ 4.9</strong>
+        <span>Avaliação</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+</section>
 
-  <div class="produtos" id="listaProdutos"></div>
-</main>
+<!-- ══════════════════════════════════════
+     CATEGORIAS EM DESTAQUE
+══════════════════════════════════════ -->
+<section class="cat-cards-section container">
+  <div class="cat-cards">
+    <a href="#" class="cat-card" data-emoji="🏺">
+      <div class="cat-card-icon">🏺</div>
+      <span>Cerâmica</span>
+    </a>
+    <a href="#" class="cat-card" data-emoji="🧶">
+      <div class="cat-card-icon">🧶</div>
+      <span>Tricô & Crochê</span>
+    </a>
+    <a href="#" class="cat-card" data-emoji="🪵">
+      <div class="cat-card-icon">🪵</div>
+      <span>Madeira</span>
+    </a>
+    <a href="#" class="cat-card" data-emoji="💐">
+      <div class="cat-card-icon">💐</div>
+      <span>Flores Secas</span>
+    </a>
+    <a href="#" class="cat-card" data-emoji="🕯️">
+      <div class="cat-card-icon">🕯️</div>
+      <span>Velas</span>
+    </a>
+    <a href="#" class="cat-card" data-emoji="🎨">
+      <div class="cat-card-icon">🎨</div>
+      <span>Arte</span>
+    </a>
+  </div>
+</section>
 
-<footer class="footer">
-  <div class="container footer-container">
+<!-- ══════════════════════════════════════
+     PRODUTOS EM DESTAQUE
+══════════════════════════════════════ -->
+<section class="produtos-section container" id="produtos">
 
-    <div class="footer-col">
-      <h3>Ludovico</h3>
-      <p>Marketplace de produtos artesanais feitos com carinho 💛</p>
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Produtos em destaque</h2>
+      <p class="section-sub">Selecionados pelos nossos editores</p>
+    </div>
+    <div class="section-filters">
+      <button class="filter-btn active" data-sort="recentes">Recentes</button>
+      <button class="filter-btn" data-sort="preco-asc">Menor preço</button>
+      <button class="filter-btn" data-sort="preco-desc">Maior preço</button>
+    </div>
+  </div>
+
+  <div class="produtos-grid" id="listaProdutos" aria-live="polite" aria-label="Lista de produtos"></div>
+
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+    <button class="btn-load-more" id="btnLoadMore">Ver mais produtos</button>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     BANNER VENDEDOR
+══════════════════════════════════════ -->
+<section class="seller-banner">
+  <div class="container seller-banner-inner">
+    <div class="seller-text">
+      <span class="seller-eyebrow">Para artesãos</span>
+      <h2>Venda suas criações<br>para o Brasil inteiro</h2>
+      <p>Cadastre-se gratuitamente e alcance milhares de compradores que valorizam o artesanato.</p>
+      <a href="anunciar.html" class="btn-seller">Começar a vender</a>
+    </div>
+    <div class="seller-orbs" aria-hidden="true">
+      <div class="s-orb s-orb-1"></div>
+      <div class="s-orb s-orb-2"></div>
+      <div class="s-orb s-orb-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container footer-inner">
+
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Ludovico</a>
+      <p>Marketplace de produtos artesanais feitos com carinho para você.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Pinterest">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.26-5.33 1.26-5.33s-.32-.64-.32-1.59c0-1.49.87-2.61 1.94-2.61.92 0 1.36.69 1.36 1.52 0 .93-.59 2.31-.9 3.59-.26 1.07.53 1.94 1.58 1.94 1.9 0 3.17-2.44 3.17-5.33 0-2.2-1.48-3.85-4.16-3.85-3.03 0-4.92 2.26-4.92 4.78 0 .87.25 1.47.64 1.94.18.22.2.3.14.55-.04.18-.14.61-.18.78-.06.25-.24.34-.44.25-1.23-.5-1.8-1.86-1.8-3.38 0-2.51 2.12-5.52 6.33-5.52 3.39 0 5.62 2.45 5.62 5.09 0 3.49-1.93 6.1-4.76 6.1-.95 0-1.85-.51-2.16-1.09l-.59 2.28c-.22.84-.79 1.88-1.18 2.52.89.27 1.84.42 2.81.42 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </a>
+      </div>
     </div>
 
-    <div class="footer-col">
-      <h4>Institucional</h4>
-      <a href="#">Sobre nós</a>
-      <a href="#">Como funciona</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Ajuda</h4>
-      <a href="#">Central de ajuda</a>
-      <a href="#">Frete</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Redes sociais</h4>
-      <span>📸 Instagram</span>
-      <span>👍 Facebook</span>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Institucional</h4>
+        <a href="#">Sobre nós</a>
+        <a href="#">Como funciona</a>
+        <a href="#">Blog</a>
+        <a href="#">Carreiras</a>
+      </div>
+      <div class="footer-col">
+        <h4>Comprar</h4>
+        <a href="#">Central de ajuda</a>
+        <a href="#">Frete e prazos</a>
+        <a href="#">Trocas e devoluções</a>
+      </div>
+      <div class="footer-col">
+        <h4>Vender</h4>
+        <a href="anunciar.html">Anunciar produto</a>
+        <a href="#">Guia do vendedor</a>
+        <a href="#">Taxas e comissões</a>
+      </div>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    <p>© 2026 Ludovico</p>
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Ludovico — Todos os direitos reservados</p>
+      <div class="footer-legal">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos de uso</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
   </div>
 </footer>
 
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/index.js"></script>
-
 </body>
 </html>
