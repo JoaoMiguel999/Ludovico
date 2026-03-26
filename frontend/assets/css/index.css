@@ -1,0 +1,366 @@
+/* ================= VARIÁVEIS ================= */
+:root {
+  --primary: #ff6a00;
+  --primary-dark: #e85c00;
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --gray: #777;
+  --border: #eee;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.1);
+  --transition: all 0.25s ease;
+}
+
+/* ================= DARK MODE ================= */
+body.dark {
+  --bg: #121212;
+  --card: #1e1e1e;
+  --text: #f1f1f1;
+  --gray: #aaa;
+  --border: #2c2c2c;
+  --shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease;
+}
+
+main { flex: 1; }
+
+.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ================= HEADER (TOPBAR) ================= */
+.topbar {
+  background: var(--card); /* Usando variável para mudar no dark mode */
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.topbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+
+.logo h2 {
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ================= BUSCA ================= */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 4px 6px;
+  width: 420px;
+}
+
+.search-box select {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding: 0 10px;
+  font-size: 13px;
+  outline: none;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  outline: none;
+  color: var(--text);
+}
+
+.search-box button {
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ================= AÇÕES & ICONES ================= */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.icon {
+  position: relative;
+  font-size: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.icon:hover { transform: scale(1.15); }
+
+.icon span {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 50%;
+}
+
+/* ================= USER MENU & DROPDOWN (O CORAÇÃO DO PROBLEMA) ================= */
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative; /* Pai relativo para o dropdown se posicionar */
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.user-menu:hover {
+  background: var(--border);
+}
+
+.user-menu img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#userName {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* O Dropdown */
+.dropdown-user {
+  position: absolute;
+  top: 55px; /* Distância do topo */
+  right: 0;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  min-width: 200px;
+  display: none; /* Escondido por padrão */
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1100; /* Acima de tudo */
+  border: 1px solid var(--border);
+}
+
+/* Quando o JS adiciona a classe .active */
+.dropdown-user.active {
+  display: flex;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user .item {
+  padding: 12px 18px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.dropdown-user .item:hover {
+  background: var(--bg);
+  color: var(--primary);
+}
+
+/* Nome do usuário logado no topo do menu */
+#nomeUsuario {
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--primary);
+  border-bottom: 1px solid var(--border);
+  display: block;
+}
+
+.dropdown-user .logout {
+  color: #ff4d4d !important;
+  border-top: 1px solid var(--border);
+}
+
+/* ================= MENU DE CATEGORIAS ================= */
+.menu {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.menu ul {
+  display: flex;
+  gap: 25px;
+  padding: 12px 0;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.menu li {
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  transition: var(--transition);
+}
+
+.menu li:hover { color: var(--primary); }
+
+.menu li.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ================= PRODUTOS & CARDS ================= */
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 25px;
+  margin: 40px 0;
+}
+
+.card-produto {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 15px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.card-produto:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary);
+}
+
+.card-produto img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-produto h3 {
+  font-size: 15px;
+  margin: 12px 0 5px;
+}
+
+.card-produto p {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.card-produto span {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ================= BOTÕES ================= */
+.btn-cart, .btn-fav {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-cart {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-cart:hover { background: var(--primary-dark); }
+
+.btn-fav {
+  background: var(--bg);
+  color: var(--text);
+  margin-top: 6px;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.footer-col h3 { color: var(--primary); margin-bottom: 15px; }
+.footer-col h4 { margin-bottom: 15px; }
+
+.footer-col a {
+  display: block;
+  text-decoration: none;
+  color: var(--gray);
+  margin-bottom: 8px;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.footer-col a:hover { color: var(--primary); transform: translateX(5px); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 850px) {
+  .topbar .container { flex-wrap: wrap; gap: 15px; justify-content: center; }
+  .search-box { order: 3; width: 100%; }
+}

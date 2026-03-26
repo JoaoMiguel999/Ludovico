@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Marketplace artesanal Ludovico - Compre produtos únicos feitos à mão">
+  
+  <title>Ludovico - Marketplace Artesanal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container">
+
+    <div class="logo">
+      <h2>Ludovico</h2>
+    </div>
+
+    <div class="search-box">
+      <select>
+        <option>Produtos</option>
+        <option>Lojas</option>
+      </select>
+
+      <input type="text" placeholder="Busque por produtos">
+      <button>🔍</button>
+    </div>
+
+    <div class="actions">
+
+      <div class="icon" id="toggleDark">🌙</div>
+
+      <div class="icon">
+        ❤️ <span id="countFav">0</span>
+      </div>
+
+      <div class="icon">
+        🛒 <span id="countCart">0</span>
+      </div>
+
+      <!-- 👤 USUÁRIO -->
+      <div class="user-menu">
+
+        <img id="userAvatar" 
+             src="assets/img/user.png" 
+             alt="Avatar">
+
+        <span id="userName">Conta</span>
+
+        <div class="dropdown-user" id="dropdownUser">
+          <a href="login.html" class="item">🔑 Entrar</a>
+          <a href="cadastro.html" class="item">📝 Cadastrar</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="menu">
+    <div class="container menu-container">
+      <ul>
+        <li class="active">☰ Todas as categorias</li>
+        <li>Casa e Decoração</li>
+        <li>Moda</li>
+        <li>Bebê e Infantil</li>
+        <li>Casamento</li>
+        <li>Festas e Eventos</li>
+        <li>Materiais de Artesanato</li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Produtos em destaque</h2>
+
+  <div class="produtos" id="listaProdutos"></div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-container">
+
+    <div class="footer-col">
+      <h3>Ludovico</h3>
+      <p>Marketplace de produtos artesanais feitos com carinho 💛</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Institucional</h4>
+      <a href="#">Sobre nós</a>
+      <a href="#">Como funciona</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Ajuda</h4>
+      <a href="#">Central de ajuda</a>
+      <a href="#">Frete</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Redes sociais</h4>
+      <span>📸 Instagram</span>
+      <span>👍 Facebook</span>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Ludovico</p>
+  </div>
+</footer>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/index.js"></script>
+
+</body>
+</html>

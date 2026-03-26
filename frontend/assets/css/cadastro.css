@@ -1,0 +1,96 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* BODY */
+body {
+  background: #0f172a;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+/* CONTAINER */
+.login-container {
+  background: #020617;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 350px;
+
+  text-align: center;
+}
+
+/* TÍTULOS */
+.login-container h1 {
+  color: #38bdf8;
+  margin-bottom: 5px;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  font-weight: normal;
+  color: #cbd5f5;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* LABEL */
+label {
+  text-align: left;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* INPUT */
+input {
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #1e293b;
+  color: #fff;
+}
+
+/* BOTÃO */
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background: #38bdf8;
+  border: none;
+  border-radius: 5px;
+  color: #020617;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0ea5e9;
+}
+
+/* LINK */
+p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+p a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
